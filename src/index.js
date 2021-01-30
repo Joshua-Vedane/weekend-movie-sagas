@@ -77,7 +77,7 @@ const movieDetails = (state = [], action) => {
   }
 }
 
-//Used to store individual genre details
+// Used to store individual genre details
 const genreDetails = (state = [], action) => {
   switch (action.type) {
     case 'SET_GENRE_DETAILS':
