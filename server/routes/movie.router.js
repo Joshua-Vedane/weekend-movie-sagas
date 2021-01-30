@@ -18,8 +18,16 @@ router.get('/', (req, res) => {
 // get movie details 
 router.get('/:id', (req,res) => {
   const movieId = req.params.id;
-  console.log('got to get movie:', movieId);
-  res.sendStatus(200);
+  const movieDetailsQuery = `
+  SELECT * FROM "movies"
+  WHERE "movies".id = $1;` 
+  pool.query(movieDetailsQuery, [movieId])
+    .then(result => {
+      res.send(result.rows)
+    }).catch(err => {
+      console.log('ERROR in Get Movie Details', err);
+      res.sendStatus(500);
+    })
 })
 
 

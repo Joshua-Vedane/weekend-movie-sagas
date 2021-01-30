@@ -14,11 +14,13 @@ function MovieList() {
     }, []);
 
     console.log(movies);
+
     return (
 
       
         <main>
             <h1>MovieList</h1>
+            {/* <h2>{movies.movies[0].title}</h2> */}
             <Grid container spacing={4} justify="center">
               {movies.map(movie => {
                 return(

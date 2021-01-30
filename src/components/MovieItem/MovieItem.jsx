@@ -10,6 +10,7 @@ function MovieItem ({movie}) {
     // route to details page. will get detailsReducer in comp. 
 
   }
+  
 
   return(
 
