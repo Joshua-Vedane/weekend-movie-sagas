@@ -14,7 +14,8 @@ import axios from 'axios';
 // Create the rootSaga generator function
 function* rootSaga() {
   yield takeEvery('FETCH_MOVIES', fetchAllMovies);
-  yield takeEvery('FETCH_DETAILS', fetchDetails)
+  yield takeEvery('FETCH_GENRES', fetchAllGenres)
+  yield takeEvery('FETCH_DETAILS', fetchDetails);
 }
 
 function* fetchAllMovies() {
@@ -26,6 +27,17 @@ function* fetchAllMovies() {
 
   } catch {
     console.log('get all error');
+  }
+}
+
+function* fetchAllGenres(){
+  //get all genres from the DB
+  try{
+    const genres = yield axios.get('/api/genre');
+    console.log('get all genres:', genres.data);
+    yield put ({type: 'SET_GENRES', payload: genres.data})
+  } catch {
+    console.log('error in getting genres');
   }
 }
 
@@ -43,6 +55,7 @@ function* fetchDetails(action) {
     console.log('error in getting details');
   }
 }
+
 
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();
@@ -103,10 +116,11 @@ const storeInstance = createStore(
 sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <Provider store={storeInstance}>
       <App />
     </Provider>
-  </React.StrictMode>,
+  // </React.StrictMode>
+  ,
   document.getElementById('root')
 );
