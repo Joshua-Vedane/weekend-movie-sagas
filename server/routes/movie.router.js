@@ -13,8 +13,16 @@ router.get('/', (req, res) => {
       console.log('ERROR: Get all movies', err);
       res.sendStatus(500)
     })
-
 });
+
+// get movie details 
+router.get('/:id', (req,res) => {
+  const movieId = req.params.id;
+  console.log('got to get movie:', movieId);
+  res.sendStatus(200);
+})
+
+
 
 router.post('/', (req, res) => {
   console.log(req.body);

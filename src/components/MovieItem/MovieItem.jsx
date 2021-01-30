@@ -1,10 +1,14 @@
 import { Box, Card, Typography, CardActionArea, CardActions, CardContent, Button} from '@material-ui/core';
+import {useDispatch} from 'react-redux';
 
 function MovieItem ({movie}) {
+  const dispatch = useDispatch();
 
-
+  // Get details for clicked movie. 
   function handleDetails(){
-    dispatch({type: 'GET THE DEETS YO', payload: movie.id})
+    dispatch({type: 'FETCH_DETAILS', payload: movie.id})
+    // route to details page. will get detailsReducer in comp. 
+
   }
 
   return(
