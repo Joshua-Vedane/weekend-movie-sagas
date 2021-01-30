@@ -31,7 +31,7 @@ function Details() {
                 <span>Genres:  </span>
                 {genreDetail.map((genre) => {
                   return(
-                    <span>{genre.name}, </span>
+                    <span>{genre.name}       </span>
                   )
                 })}
               </Typography>
