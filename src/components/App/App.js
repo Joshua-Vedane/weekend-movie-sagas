@@ -15,6 +15,7 @@ function App() {
             <MovieList />
           </Route>
           
+          
           {/* Details page */}
           <Route path="/details">
             <Details/>
