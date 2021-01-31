@@ -4,7 +4,7 @@ import './App.css';
 import MovieList from '../MovieList/MovieList.jsx';
 import Details from '../Details/Details.jsx';
 import AddMovie from '../AddMovie/AddMovie.jsx';
-
+ 
 function App() {
   return (
     <div className="App">
