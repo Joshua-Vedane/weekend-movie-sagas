@@ -3,13 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import './MovieList.css'
 import MovieItem from '../MovieItem/MovieItem';
 import { Grid, Box, Typography, Button } from '@material-ui/core';
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 function MovieList() {
   const history = useHistory();
   const dispatch = useDispatch();
   const movies = useSelector(store => store.movies);
 
+  //route to add movie view
   const handleAdd = () => {
     history.push('/add');
   }
@@ -41,20 +42,7 @@ function MovieList() {
               </Grid>
             )
           })}
-
         </Grid>
-
-
-        {/* <section className="movies">
-                {movies.map(movie => {
-                    return (
-                        <div key={movie.id} >
-                            <h3>{movie.title}</h3>
-                            <img src={movie.poster} alt={movie.title}/>
-                        </div>
-                    );
-                })}
-            </section> */}
       </main>
     </>
   );

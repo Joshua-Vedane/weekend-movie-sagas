@@ -1,10 +1,10 @@
-import {Box, Typography, TextField, Button, Divider, Card, CardContent, CardActions, Menu, MenuItem, Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
-import {useState} from 'react';
+import { Box, Typography, TextField, Button, Card, CardContent, CardActions, Menu, MenuItem } from '@material-ui/core';
+import { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
-function AddMovie () {
+function AddMovie() {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -20,6 +20,7 @@ function AddMovie () {
     setAnchorEl(event.currentTarget)
   }
 
+  //set genre for movie
   const handleGenreSelect = (genreId) => {
     setMovieGenreId(genreId);
     setAnchorEl(null);
@@ -57,74 +58,71 @@ function AddMovie () {
   }
 
   // GET genres on component load for menuItems
-useEffect(() => dispatch ({type: 'FETCH_GENRES'}), []);
+  useEffect(() => dispatch({ type: 'FETCH_GENRES' }), []);
 
-  return(
+  return (
     <>
-    <Box height={100} p={3}>
+      <Box height={100} p={3}>
         <Box display="flex" justifyContent="center" alignItems="center">
           <Box marginRight={2}>
             <Typography align="left" variant="h4"> Add A Movie</Typography>
           </Box>
+        </Box>
+      </Box>
+      <Card>
+        <CardContent>
           <Box>
-            
+            <TextField
+              label="Movie Title"
+              fullWidth={true}
+              variant="outlined"
+              value={movieTitle}
+              onChange={(event) => setMovieTitle(event.target.value)}
+            />
           </Box>
-        </Box>
-      </Box>
-    <Card>
-      <CardContent>
-        <Box>
-          <TextField 
-          label="Movie Title"
-          fullWidth={true}
-          variant="outlined"
-          value={movieTitle}
-          onChange={(event) => setMovieTitle(event.target.value)}
-          />
-        </Box>
-        <Box>
-          <TextField 
-          label="URL"
-          fullWidth={true}
-          variant="outlined"
-          value={movieImage}
-          onChange={(event) => setMovieImage(event.target.value)}
-          />
-        </Box>
-        <Box>
-          <TextField 
-          label="Description"
-          fullWidth={true}
-          multiline
-          rows={5}
-          variant="outlined"
-          value={movieDescription}
-          onChange={(event) => setMovieDescription(event.target.value)}
-          />
-        </Box>
-      </CardContent>
-      <Box display="flex" alignItems="center" justifyContent="center">
-        <CardActions>
-          <Button color= "primary" variant="contained" onClick={handleOpenMenu}>
-            Genres
+          <Box>
+            <TextField
+              label="URL"
+              fullWidth={true}
+              variant="outlined"
+              value={movieImage}
+              onChange={(event) => setMovieImage(event.target.value)}
+            />
+          </Box>
+          <Box>
+            <TextField
+              label="Description"
+              fullWidth={true}
+              multiline
+              rows={5}
+              variant="outlined"
+              value={movieDescription}
+              onChange={(event) => setMovieDescription(event.target.value)}
+            />
+          </Box>
+        </CardContent>
+        <Box display="flex" alignItems="center" justifyContent="center">
+          <CardActions>
+            <Button color="primary" variant="contained" onClick={handleOpenMenu}>
+              Genres
           </Button>
-          <Menu
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={() => setAnchorEl(null)}>
-            {genreList.map((genreItem) => {
-              return (
-                <MenuItem key={genreItem.id} onClick={() => handleGenreSelect(genreItem.id)}>
-                  {genreItem.name}
-                </MenuItem>
-              )
-            })}
-          </Menu>
-        </CardActions>
-      </Box>
-       <Box display="flex" justifyContent="center">
-         <CardActions>
+            <Menu
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={() => setAnchorEl(null)}>
+              {genreList.map((genreItem) => {
+                return (
+                  <MenuItem key={genreItem.id} onClick={() => handleGenreSelect(genreItem.id)}>
+                    {genreItem.name}
+                  </MenuItem>
+                )
+              })}
+            </Menu>
+          </CardActions>
+        </Box>
+        <Box display="flex" justifyContent="center">
+          <CardActions>
             <Button
               color="secondary"
               variant="contained"
@@ -139,9 +137,9 @@ useEffect(() => dispatch ({type: 'FETCH_GENRES'}), []);
             >
               Save
             </Button>
-         </CardActions>
-       </Box>
-    </Card>
+          </CardActions>
+        </Box>
+      </Card>
     </>
   )
 }

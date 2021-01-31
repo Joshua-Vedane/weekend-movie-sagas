@@ -23,20 +23,20 @@ function* fetchAllMovies() {
   // get all movies from the DB
   try {
     const movies = yield axios.get('/api/movie');
-    console.log('get all:', movies.data);
+    // console.log('get all:', movies.data);
     yield put({ type: 'SET_MOVIES', payload: movies.data });
 
-  } catch (error){
+  } catch (error) {
     console.log('get all error', error);
   }
 }
 
-function* fetchAllGenres(){
+function* fetchAllGenres() {
   //get all genres from the DB
-  try{
+  try {
     const genres = yield axios.get('/api/genre');
-    console.log('get all genres:', genres.data);
-    yield put ({type: 'SET_GENRES', payload: genres.data})
+    // console.log('get all genres:', genres.data);
+    yield put({ type: 'SET_GENRES', payload: genres.data })
   } catch (error) {
     console.log('error in getting genres', error);
   }
@@ -46,23 +46,23 @@ function* fetchDetails(action) {
   // get details of movie from DB
   try {
     const movieId = action.payload;
-    console.log('get details for:', movieId);
+    // console.log('get details for:', movieId);
     const movieDetails = yield axios.get(`/api/movie/${movieId}`)
-    yield put({type: 'SET_MOVIE_DETAILS', payload: movieDetails.data})
+    yield put({ type: 'SET_MOVIE_DETAILS', payload: movieDetails.data })
     //get genre details
     const genreDetails = yield axios.get(`/api/genre/${movieId}`)
-    yield put ({type: 'SET_GENRE_DETAILS', payload: genreDetails.data})
-  } catch (error){
+    yield put({ type: 'SET_GENRE_DETAILS', payload: genreDetails.data })
+  } catch (error) {
     console.log('error in getting details', error);
   }
 }
 
 function* postMovie(action) {
   // post movie to DB
-  try{
+  try {
     const newMovie = action.payload;
     yield axios.post('/api/movie', newMovie);
-    yield put ({type: 'FETCH_MOVIES'})
+    yield put({ type: 'FETCH_MOVIES' })
   } catch (error) {
     console.log('error in adding movie', error);
   }
@@ -97,7 +97,7 @@ const movieDetails = (state = [], action) => {
   switch (action.type) {
     case 'SET_MOVIE_DETAILS':
       return action.payload;
-    default: 
+    default:
       return state;
   }
 }
@@ -107,7 +107,7 @@ const genreDetails = (state = [], action) => {
   switch (action.type) {
     case 'SET_GENRE_DETAILS':
       return action.payload;
-    default: 
+    default:
       return state;
   }
 }
@@ -129,9 +129,9 @@ sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   // <React.StrictMode>
-    <Provider store={storeInstance}>
-      <App />
-    </Provider>
+  <Provider store={storeInstance}>
+    <App />
+  </Provider>
   // </React.StrictMode>
   ,
   document.getElementById('root')

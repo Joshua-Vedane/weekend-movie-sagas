@@ -1,5 +1,5 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { Card, Button, CardContent, Typography, TextField, Box } from '@material-ui/core';
+import { useSelector } from 'react-redux';
+import { Card, Button, CardContent, Typography, Box } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 
 
@@ -22,7 +22,7 @@ function Details() {
             <Typography align="left" variant="h4"> Further Details</Typography>
           </Box>
           <Box>
-            <Button p={2} variant= "outlined" color="primary" onClick={goHome}>Home</Button>
+            <Button p={2} variant="outlined" color="primary" onClick={goHome}>Home</Button>
           </Box>
         </Box>
       </Box>
