@@ -1,20 +1,36 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Card, Button, CardContent, Typography, TextField, Box } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
+
 
 function Details() {
+  const history = useHistory();
   const movieDetail = useSelector((state) => state.movieDetails);
   const genreDetail = useSelector((state) => state.genreDetails);
   console.log(movieDetail);
   console.log(genreDetail);
 
+  const goHome = () => {
+    history.push('/');
+  }
+
   return (
     <>
-      <h3> Welcome to Details</h3>
+      <Box height={150} p={3}>
+        <Box display="flex" justifyContent="space-evenly" alignItems="center">
+          <Box marginRight={2}>
+            <Typography align="left" variant="h4"> Further Details</Typography>
+          </Box>
+          <Box>
+            <Button p={2} variant= "outlined" color="primary" onClick={goHome}>Home</Button>
+          </Box>
+        </Box>
+      </Box>
       {movieDetail.map((movie) => {
         return (
           <Card>
             <Box>
-              <img src={movie.poster} alt={movie.title}/>
+              <img src={movie.poster} alt={movie.title} />
             </Box>
             <CardContent>
               <Typography variant="h5">
@@ -30,8 +46,8 @@ function Details() {
               <Typography variant="h5">
                 <span>Genres:  </span>
                 {genreDetail.map((genre) => {
-                  return(
-                    <span>{genre.name}, </span>
+                  return (
+                    <span>{genre.name}       </span>
                   )
                 })}
               </Typography>
