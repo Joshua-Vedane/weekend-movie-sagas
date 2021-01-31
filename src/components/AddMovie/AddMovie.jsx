@@ -2,14 +2,17 @@ import {Box, Typography, TextField, Button, Divider, Card, CardContent, CardActi
 import {useState} from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import {useHistory} from 'react-router-dom';
 
 function AddMovie () {
   const dispatch = useDispatch();
+  const history = useHistory();
+
   const [anchorEl, setAnchorEl] = useState(null);
-  const [movieName, setMovieName] = useState('');
+  const [movieTitle, setMovieTitle] = useState('');
   const [movieImage, setMovieImage] = useState('');
   const [movieDescription, setMovieDescription] = useState('');
-  const [movieGenre, setMovieGenre] = useState('');
+  const [movieGenreId, setMovieGenreId] = useState('');
 
   const genreList = useSelector((store) => store.genres)
 
@@ -18,25 +21,65 @@ function AddMovie () {
   }
 
   const handleGenreSelect = (genreId) => {
-    setMovieGenre(genreId);
+    setMovieGenreId(genreId);
     setAnchorEl(null);
   }
 
-  console.log(genreList);
-  console.log('movieGenre is now:', movieGenre);
+  // cancel addition and reroute to home
+  const handleCancel = () => {
+    clearState();
+    history.push('/')
+  }
+
+  // dispatch movie to sagas
+  const handleAddMovie = () => {
+    console.log('clicked added movie');
+    const action = {
+      type: 'ADD_MOVIE',
+      payload: {
+        title: movieTitle,
+        poster: movieImage,
+        description: movieDescription,
+        genre_id: movieGenreId
+      }
+    }
+    dispatch(action);
+    clearState();
+    history.push('/');
+  }
+
+  //reset local state
+  const clearState = () => {
+    setMovieTitle('');
+    setMovieImage('');
+    setMovieDescription('');
+    setMovieGenreId('');
+  }
+
   // GET genres on component load for menuItems
 useEffect(() => dispatch ({type: 'FETCH_GENRES'}), []);
 
   return(
+    <>
+    <Box height={100} p={3}>
+        <Box display="flex" justifyContent="center" alignItems="center">
+          <Box marginRight={2}>
+            <Typography align="left" variant="h4"> Add A Movie</Typography>
+          </Box>
+          <Box>
+            
+          </Box>
+        </Box>
+      </Box>
     <Card>
       <CardContent>
         <Box>
           <TextField 
-          label="Movie Name"
+          label="Movie Title"
           fullWidth={true}
           variant="outlined"
-          value={movieName}
-          onChange={(event) => setMovieName(event.target.value)}
+          value={movieTitle}
+          onChange={(event) => setMovieTitle(event.target.value)}
           />
         </Box>
         <Box>
@@ -80,7 +123,26 @@ useEffect(() => dispatch ({type: 'FETCH_GENRES'}), []);
           </Menu>
         </CardActions>
       </Box>
+       <Box display="flex" justifyContent="center">
+         <CardActions>
+            <Button
+              color="secondary"
+              variant="contained"
+              onClick={handleCancel}
+            >
+              Cancel
+            </Button>
+            <Button
+              color="primary"
+              variant="contained"
+              onClick={handleAddMovie}
+            >
+              Save
+            </Button>
+         </CardActions>
+       </Box>
     </Card>
+    </>
   )
 }
 
